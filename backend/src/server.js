@@ -4,6 +4,19 @@ import { fileURLToPath } from "url";
 import { ENV } from "./lib/env.js";
 import helmet from "helmet";
 
+import fs from "fs";
+
+// temporary debug route
+app.get("/debug", (req, res) => {
+  const distPath = path.join(__dirname, "../../frontend/dist");
+  res.json({
+    dirname: __dirname,
+    distPath: distPath,
+    distExists: fs.existsSync(distPath),
+    indexExists: fs.existsSync(path.join(distPath, "index.html"))
+  });
+});
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
