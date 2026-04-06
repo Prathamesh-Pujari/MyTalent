@@ -24,6 +24,14 @@ app.get("/debug", (req, res) => {
   });
 });
 
+app.get("/debug-env", (req, res) => {
+  res.json({
+    NODE_ENV: ENV.NODE_ENV,
+    PORT: ENV.PORT,
+    raw: process.env.NODE_ENV
+  });
+});
+
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -63,7 +71,7 @@ app.get("/books", (req, res) => {
 if (ENV.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
-  app.get("*", (req, res) => {
+  app.get("/{*any}", (req, res) => {
     res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
   });
 }
