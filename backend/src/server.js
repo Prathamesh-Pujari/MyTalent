@@ -3,8 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { ENV } from "./lib/env.js";
 import helmet from "helmet";
-
-import fs from "fs";
+import { connectDB } from "./lib/db.js";
 
 
 
@@ -12,17 +11,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-
-// temporary debug route
-app.get("/debug", (req, res) => {
-  const distPath = path.join(__dirname, "../../frontend/dist");
-  res.json({
-    dirname: __dirname,
-    distPath: distPath,
-    distExists: fs.existsSync(distPath),
-    indexExists: fs.existsSync(path.join(distPath, "index.html"))
-  });
-});
 
 app.get("/debug-env", (req, res) => {
   res.json({
@@ -76,4 +64,16 @@ if (ENV.NODE_ENV === "production") {
   });
 }
 
-app.listen(ENV.PORT, () => console.log(`Server is running on ${ENV.PORT}`));
+
+
+const startServer = async () => {
+  try {
+    await connectDB()
+    app.listen(ENV.PORT, () => console.log("Server is running on port : ", ENV.PORT),
+    );
+  } catch (error) {
+    console.log("Error Starting Server", error)
+  }
+}
+
+startServer();
