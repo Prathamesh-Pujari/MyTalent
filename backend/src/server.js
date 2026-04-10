@@ -22,33 +22,7 @@ app.use(express.json())
 app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }))
 
 
-app.use(
-  helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        scriptSrc: ["'self'"],
-        styleSrc: [
-          "'self'",
-          "'unsafe-inline'",
-          "https://fonts.googleapis.com"
-        ],
-        fontSrc: [
-          "'self'",
-          "https://fonts.gstatic.com"
-        ],
-        connectSrc: [
-          "'self'",
-          ...(ENV.NODE_ENV !== "production"
-            ? ["http://localhost:3000", "http://localhost:5173"]
-            : []
-          ),
-        ],
-        imgSrc: ["'self'", "data:"],
-      },
-    },
-  })
-);
+
 
 app.use("/api/inngest", serve({ client: inngest, functions }))
 
