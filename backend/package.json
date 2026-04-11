@@ -19,7 +19,8 @@
     "helmet": "^8.1.0",
     "inngest": "^3.44.3",
     "mongoose": "^8.19.1",
-    "mytalent": "file:.."
+    "mytalent": "file:..",
+    "stream-chat": "^9.24.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
