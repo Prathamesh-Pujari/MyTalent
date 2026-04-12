@@ -8,6 +8,8 @@ import cors from "cors"
 import { serve } from "inngest/express";
 import { inngest } from "./lib/inngest.js";
 import { functions } from "./lib/inngest.js";
+import { clerkMiddleware } from '@clerk/express'
+
 
 
 

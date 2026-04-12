@@ -10,7 +10,7 @@ import {
 function App() {
   return (
     <>
-      <h1>Welcome To MyTalent</h1>
+      <h1>Welcome To MyTalent Prathamesh</h1>
       <SignOutButton>
         <SignInButton mode="modal" />
       </SignOutButton>
