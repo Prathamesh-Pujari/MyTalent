@@ -124,8 +124,6 @@ export async function endSession(req, res) {
     if (session.status === "completed") {
       return res.status(400).json({ message: "Session is already completed" })
     }
-    session.status = "completed"
-    await session.save()
 
     //delete stream video call
 
@@ -137,12 +135,15 @@ export async function endSession(req, res) {
     const chennal = chatClient.channel("messaging", session.callId);
     await chennal.delete()
 
+    session.status = "completed"
+    await session.save()
+
 
     res.status(200).json({ session, message: "Session ended" })
 
 
   } catch (error) {
-     console.log("Error in end  Session  controller", error.message)
+    console.log("Error in end  Session  controller", error.message)
     res.status(500).json({ message: "Internal Server Error" })
   }
 }
