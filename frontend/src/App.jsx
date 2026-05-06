@@ -8,18 +8,24 @@ import {
 import { Navigate, Route, Routes } from "react-router";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
+import DashboardPage from "./pages/DashboardPage";
 import ProblemsPage from "./pages/ProblemsPage";
 import { Toaster } from "react-hot-toast";
 
 function App() {
-  const { isSignedIn } = useUser();
+  const { isSignedIn, isLoaded } = useUser();
+  if (!isLoaded) return null;
   return (
     <>
-      <h1 className="text-3xl text-red-600 bg-orange-500 p-10">
-        Welcome To MyTalent Prathamesh
-      </h1>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/"
+          element={!isSignedIn ? <HomePage /> : <Navigate to={"/dashboard"} />}
+        />
+        <Route
+          path="/dashboard"
+          element={isSignedIn ? <DashboardPage /> : <Navigate to={"/"} />}
+        />
         <Route path="/about" element={<AboutPage />} />
         <Route
           path="/problems"
