@@ -39,22 +39,22 @@ export const useSessionById = (id) => {
   return reasult;
 };
 
-export const useJoinSession = (id) => {
+export const useJoinSession = () => {
   const result = useMutation({
     mutationKey: ["joinSession"],
-    mutationFn: () => sessionApi.JoinSession(id),
+    mutationFn: sessionApi.JoinSession,
     onSuccess: () => toast.success("Joined Session Successfully..."),
     onError: (error) => toast.error(error.response?.data?.message || "Failed to join session"),
   })
   return result;
 }
 
-export const useEndSession = (id) => {
+export const useEndSession = () => {
   const result = useMutation({
     mutationKey: ["endSession"],
-    mutationFn: () => sessionApi.endSession(id),
+    mutationFn: sessionApi.endSession,
     onSuccess: () => toast.success("Session Ended Successfully..."),
-    onError: (error) => toast.error(error.response?.data?.message || "Failed to join session"),
+    onError: (error) => toast.error(error.response?.data?.message || "Failed to end session"),
   })
   return result;
 }

@@ -22,12 +22,12 @@ export const sessionApi = {
   },
 
   JoinSession: async (id) => {
-    const response = await axiosInstance.get(`/sessions/${id}/join`,)
+    const response = await axiosInstance.post(`/sessions/${id}/join`)
     return response.data
   },
 
-  EndSession: async (id) => {
-    const response = await axiosInstance.get(`/sessions/${id}/end`,)
+  endSession: async (id) => {
+    const response = await axiosInstance.post(`/sessions/${id}/end`)
     return response.data
   },
 

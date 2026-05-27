@@ -64,9 +64,13 @@ function RecentSessions({ sessions, isLoading }) {
                     <div className="flex items-center gap-2">
                       <Clock className="w-4 h-4" />
                       <span>
-                        {formatDistanceToNow(new Date(session.createdAt), {
-                          addSuffix: true,
-                        })}
+                        {session.createdAt ? (
+                          formatDistanceToNow(new Date(session.createdAt), {
+                            addSuffix: true,
+                          })
+                        ) : (
+                          "Unknown"
+                        )}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
@@ -83,7 +87,7 @@ function RecentSessions({ sessions, isLoading }) {
                       Completed
                     </span>
                     <span className="text-xs opacity-40">
-                      {new Date(session.updatedAt).toLocaleDateString()}
+                      {session.updatedAt ? new Date(session.updatedAt).toLocaleDateString() : "Unknown"}
                     </span>
                   </div>
                 </div>
