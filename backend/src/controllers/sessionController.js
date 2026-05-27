@@ -44,8 +44,8 @@ export async function createSession(req, res) {
 
 export async function getActiveSessions(_, res) {
   try {
-    const sessions = await Session.find({ status: "active" }).populate("host", "name profileImage email clerkId").sort({ createdAt: -1 }).limit(20);
-    res.ststus(200).json({ sessions })
+    const sessions = await Session.find({ status: "active" }).populate("host", "name profileImage email clerkId").populate("participant", "name profileImage email clerkId").sort({ createdAt: -1 }).limit(20);
+    res.status(200).json({ sessions })
 
   } catch (error) {
     console.log("Error in get Active Sessions controller", error.message)
@@ -61,6 +61,8 @@ export async function getMyRecentSessions(req, res) {
       status: "completed",
       $or: [{ host: userId }, { participant: userId }],
     }).sort({ createdAt: -1 }).limit(20)
+
+    res.status(200).json({ sessions });
   } catch (error) {
     console.log("Error in get Recent Sessions controller", error.message)
     res.status(500).json({ message: "Internal Server Error" })
@@ -117,7 +119,7 @@ export async function endSession(req, res) {
     if (!session) return res.status(404).json({ message: "Session not found" });
     // check if user is the host 
     if (session.host.toString() !== userId.toString()) {
-      return res.ststus(403).json({ message: "Only host can end Session" })
+      return res.status(403).json({ message: "Only host can end Session" })
     }
 
     // check if session is already completed 

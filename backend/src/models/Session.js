@@ -29,7 +29,7 @@ const sessionSchema = new mongoose.Schema({
     type: String,
     default: "",
   }
-}, { timeseries: true })
+}, { timestamps: true })
 
 const Session = mongoose.model("Session", sessionSchema)
 
